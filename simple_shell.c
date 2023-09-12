@@ -45,6 +45,47 @@ void tokenizeCommand(char *command, char *args[])
 }
 
 /**
+ * executable - find executable file
+ * @command: command
+ * @env: env var path
+ *
+ * Return: executable
+ */
+
+char *executable(char *command, char *env[])
+{
+	char *path = getenv("PATH");
+	char *dir[MAX_COMMAND_LEN];
+	char *exe = malloc(MAX_COMMAND_LEN * sizeof(char));
+	int i, count_dir;
+	char *tok;
+
+	(void)env;
+
+	if (path == NULL || exe == NULL)
+		errormsg("./shell: ");
+	tok = strtok(path, ":");
+	count_dir = 0;
+
+	while (tok != NULL && count_dir < MAX_COMMAND_LEN - 1)
+	{
+		dir[count_dir] = tok;
+		tok = strtok(NULL, ":");
+		count_dir++;
+	}
+	dir[count_dir] = NULL;
+
+	for (i = 0; i < count_dir; i++)
+	{
+		snprintf(exe, MAX_COMMAND_LEN, "%s/%s", dir[i], command);
+		if (access(exe, X_OK) != -1)
+			return (exe);
+	}
+	free(exe);
+	return (NULL);
+}
+
+/**
  * main - Simple shell
  *
  * Return: 0 (Success)
@@ -57,6 +98,7 @@ int main(void)
 	ssize_t command_length;
 	int status;
 	pid_t child_pid;
+	char *exe;
 	char *args[MAX_COMMAND_LEN];
 	char *env[1024];
 
@@ -76,7 +118,10 @@ int main(void)
 			tokenizeCommand(command, args);
 			env[0] = "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin";
 			env[1] = NULL;
-			if (execve(command, args, env) == -1)
+			exe = executable(args[0], env);
+			if (exe == NULL)
+				errormsg("./shell: ");
+			if (execve(exe, args, env) == -1)
 				errormsg("./shell: ");
 		}
 		else
