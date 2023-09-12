@@ -20,6 +20,30 @@ void errormsg(const char *str)
 	exit(1);
 }
 
+
+/**
+ * tokenizeCommand - tokenize command
+ * @command: command to tokenize
+ * @args: tokenized commands
+ *
+ * Return: Nothing
+ */
+
+void tokenizeCommand(char *command, char *args[])
+{
+	char *tok;
+	int count_arg = 0;
+
+	tok = strtok(command, " ");
+	while (tok != NULL && count_arg < MAX_COMMAND_LEN - 1)
+	{
+		args[count_arg] = tok;
+		tok = strtok(NULL, " ");
+		count_arg++;
+	}
+	args[count_arg] = NULL;
+}
+
 /**
  * main - Simple shell
  *
@@ -49,8 +73,7 @@ int main(void)
 			errormsg("./shell: ");
 		else if (child_pid == 0)
 		{
-			args[0] = command;
-			args[1] = NULL;
+			tokenizeCommand(command, args);
 			env[0] = "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin";
 			env[1] = NULL;
 			if (execve(command, args, env) == -1)
