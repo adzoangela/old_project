@@ -1,10 +1,5 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <sys/wait.h>
-#include <string.h>
+#include "main.h"
 
-#define MAX_COMMAND_LEN 100
 /*extern char **environ;*/
 
 /**
@@ -100,8 +95,9 @@ int main(void)
 	pid_t child_pid;
 	char *exe;
 	char *args[MAX_COMMAND_LEN];
-	char *env[1024];
+	char **env;
 
+	env = environ;
 	while (1)
 	{
 		printf("#cisfun$ ");
@@ -115,9 +111,12 @@ int main(void)
 			errormsg("./shell: ");
 		else if (child_pid == 0)
 		{
+			if (strcmp(command, "exit") == 0)
+			{
+				printf("exiting\n");
+				return (1);
+			}
 			tokenizeCommand(command, args);
-			env[0] = "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin";
-			env[1] = NULL;
 			exe = executable(args[0], env);
 			if (exe == NULL)
 				errormsg("./shell: ");
