@@ -106,16 +106,13 @@ int main(void)
 		if (command_length == -1)
 			errormsg("./shell: ");
 		command[strcspn(command, "\n")] = '\0';
+		if (strcmp(command, "exit") == 0)
+			break;
 		child_pid = fork();
 		if (child_pid == -1)
 			errormsg("./shell: ");
 		else if (child_pid == 0)
 		{
-			if (strcmp(command, "exit") == 0)
-			{
-				printf("exiting\n");
-				return (1);
-			}
 			tokenizeCommand(command, args);
 			exe = executable(args[0], env);
 			if (exe == NULL)
