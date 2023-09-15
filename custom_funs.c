@@ -3,14 +3,14 @@
 /**
  * custom_strtok - custom strtok()
  * @str: input string
- * @ delimeters: delimeters
+ * @delimeters: delimeters
  *
  * Return: tokens
  */
 
 char *custom_strtok(char *str, const char *delimeters)
 {
-	static char *next_token = NULL;
+	static char *next_token;
 	char *token;
 
 	if (str != NULL)
