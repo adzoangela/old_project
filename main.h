@@ -13,5 +13,6 @@ extern char **environ;
 void errormsg(const char *str);
 void tokenizeCommand(char *command, char *args[]);
 char *executable(char *command, char *env[]);
+char *custom_strtok(char *str, const char *delimiters);
 
 #endif /* MAIN_H */

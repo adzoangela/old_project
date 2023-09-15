@@ -59,13 +59,13 @@ char *executable(char *command, char *env[])
 
 	if (path == NULL || exe == NULL)
 		errormsg("./shell: ");
-	tok = strtok(path, ":");
+	tok = custom_strtok(path, ":");
 	count_dir = 0;
 
 	while (tok != NULL && count_dir < MAX_COMMAND_LEN - 1)
 	{
 		dir[count_dir] = tok;
-		tok = strtok(NULL, ":");
+		tok = custom_strtok(NULL, ":");
 		count_dir++;
 	}
 	dir[count_dir] = NULL;
