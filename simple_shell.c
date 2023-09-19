@@ -54,26 +54,19 @@ void executeCommand(char *exe, char **args, char **env)
 
 int main(void)
 {
-	char *command = NULL;
+	char *command = NULL, *exe;
 	size_t command_size = 0;
 	ssize_t command_length;
-	int status;
-	pid_t child_pid;
-	char *exe;
-	char *args[MAX_COMMAND_LEN];
-	char **env;
+	int status, child_pid;
+	char *args[MAX_COMMAND_LEN], **env = environ;
 
-	env = environ;
 	while (1)
 	{
 		printf("#cisfun$ ");
 		fflush(stdout);
 		command_length = custom_getline(&command, &command_size, stdin);
 		if (command_length == -1 || command == NULL)
-		{
-			perror("./shell: ");
-			continue;
-		}
+			errormsg2("./shell: ");
 		if (command_length == 1 && command[0] == '\n')
 			continue;
 		command[strcspn(command, "\n")] = '\0';
