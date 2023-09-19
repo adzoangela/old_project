@@ -68,15 +68,25 @@ int main(void)
 	{
 		printf("#cisfun$ ");
 		fflush(stdout);
-		command_length = custom_getline(&command, &command_size, stdin);
+		command_length = getline(&command, &command_size, stdin);
 		if (command_length == -1)
-			errormsg("./shell: ");
+		{
+			if (feof(stdin))
+				continue;
+			else
+				errormsg("./shell: ");
+		}
 		command[strcspn(command, "\n")] = '\0';
 		tokenizeCommand(command, args);
 		if (strcmp(command, "exit") == 0)
 		{
 			exit_handle(args[1], &status);
 			exit(status);
+		}
+		if (strcmp(args[0], "cd") == 0)
+		{
+			cd_command(args[0], args[1]);
+			continue;
 		}
 		child_pid = fork();
 		if (child_pid == -1)

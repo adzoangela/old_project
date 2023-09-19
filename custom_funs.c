@@ -92,3 +92,61 @@ char *executable(char *command, char *env[])
 	free(exe);
 	return (NULL);
 }
+
+/**
+ * errormsg2 - second errormsg
+ * @msg: error message
+ *
+ * Return: Nothing
+ */
+
+void errormsg2(char *msg)
+{
+	perror(msg);
+}
+
+/**
+ * cd_command - handle cd
+ * @arg1: 1st command
+ * @arg2: 2nd
+ *
+ * Return: Nothing
+ */
+
+void cd_command(char *arg1, char *arg2)
+{
+	const char *home_dir;
+	char cwd[1024];
+	const char *prev_dir;
+
+	(void)arg1;
+	if (arg2 == NULL)
+	{
+		home_dir = getenv("HOME");
+		if (home_dir == NULL)
+			errormsg2("./shell: ");
+		if (chdir(home_dir) == -1)
+			errormsg2("./shell: ");
+	}
+	else if (strcmp(arg2, "-") == 0)
+	{
+		prev_dir = getenv("OLDPWD");
+		if (prev_dir == NULL)
+			errormsg2("./shell: ");
+		if (chdir(prev_dir) == -1)
+			errormsg2("./shell: ");
+	}
+	else
+	{
+		if (access(arg2, F_OK) == -1)
+			errormsg2("./shell: ");
+		if (chdir(arg2) == -1)
+			errormsg2("./shell: ");
+	}
+	if (getcwd(cwd, sizeof(cwd)) == NULL)
+		errormsg2("./shell: ");
+	if (setenv("OLDPWD", getenv("PWD"), 1) == 1)
+		errormsg2("./shell: ");
+	if (setenv("PWD", cwd, 1) == -1)
+		errormsg2("./shell: ");
+}
