@@ -68,7 +68,7 @@ int main(void)
 	{
 		printf("#cisfun$ ");
 		fflush(stdout);
-		command_length = getline(&command, &command_size, stdin);
+		command_length = custom_getline(&command, &command_size, stdin);
 		if (command_length == -1)
 			errormsg("./shell: ");
 		command[strcspn(command, "\n")] = '\0';

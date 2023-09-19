@@ -20,5 +20,6 @@ ssize_t custom_getline(char **lineptr, size_t *n, FILE *stream);
 int my_fgetc(FILE *stream);
 int resize_buffer(char **lineptr, size_t *n);
 int initialize_buffer(char **lineptr, size_t *n);
+void expand_line(char **lineptr, size_t *n);
 
 #endif /* MAIN_H */
