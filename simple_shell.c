@@ -68,14 +68,14 @@ int main(void)
 	{
 		printf("#cisfun$ ");
 		fflush(stdout);
-		command_length = getline(&command, &command_size, stdin);
-		if (command_length == -1)
+		command_length = custom_getline(&command, &command_size, stdin);
+		if (command_length == -1 || command == NULL)
 		{
-			if (feof(stdin))
-				continue;
-			else
-				errormsg("./shell: ");
+			perror("./shell: ");
+			continue;
 		}
+		if (command_length == 1 && command[0] == '\n')
+			continue;
 		command[strcspn(command, "\n")] = '\0';
 		tokenizeCommand(command, args);
 		if (strcmp(command, "exit") == 0)

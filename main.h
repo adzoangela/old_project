@@ -19,5 +19,7 @@ void exit_handle(char *arg, int *status);
 void executeCommand(char *arg, char **args, char **env);
 void cd_command(char *arg1, char *arg2);
 void errormsg2(char *msg);
+ssize_t custom_getline(char **lineptr, size_t *n, FILE *stream);
+void expand_line(char **lineptr, size_t *n);
 
 #endif /* MAIN_H */
