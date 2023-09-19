@@ -78,7 +78,7 @@ int main(void)
 			exit_handle(args[1], &status);
 			exit(status);
 		}
-		
+
 		child_pid = fork();
 		if (child_pid == -1)
 			errormsg("./shell: ");

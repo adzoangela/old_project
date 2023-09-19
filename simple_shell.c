@@ -62,12 +62,7 @@ int main(void)
 	char *exe;
 	char *args[MAX_COMMAND_LEN];
 	char **env;
-	const char *home_dir;
-	char cwd[1024];
-	const char *prev_dir;
-/*	char *work_dir;
-	char dir_path[1024];
-*/
+
 	env = environ;
 	while (1)
 	{
@@ -83,66 +78,7 @@ int main(void)
 			exit_handle(args[1], &status);
 			exit(status);
 		}
-		if (strcmp(args[0], "cd") == 0)
-		{
-			if (args[1] == NULL)
-			{
-				home_dir = getenv("HOME");
-				if (home_dir == NULL)
-				{
-					errormsg("./shell: ");
-					continue;
-				}
-				if (chdir(home_dir) == -1)
-				{
-					errormsg("./shell: ");
-					continue;
-				}
-			}
-			else if (strcmp(args[1], "-") == 0)
-			{
-				prev_dir = getenv("OLDPWD");
-				if (prev_dir == NULL)
-				{
-					perror("./shell: ");
-					continue;
-				}
-				if (chdir(prev_dir) == -1)
-				{
-					perror("./shell: ");
-					continue;
-				}
-			}
-			else
-			{
-				if (access(args[1], F_OK) == -1)
-				{
-					perror("./shell: ");
-					continue;
-				}
-				if (chdir(args[1]) == -1)
-				{
-					perror("./shell: ");
-					continue;
-				}
-			}
-			if (getcwd(cwd, sizeof(cwd)) == NULL)
-			{
-				errormsg("./shell: ");
-				continue;
-			}
-			if (setenv("OLDPWD", getenv("PWD"), 1) == -1)
-			{
-				errormsg("./shell: ");
-				continue;
-			}
-			if (setenv("PWD", cwd, 1) == -1)
-			{
-				perror("./shell: ");
-				continue;
-			}
-			continue;
-		}
+		
 		child_pid = fork();
 		if (child_pid == -1)
 			errormsg("./shell: ");
