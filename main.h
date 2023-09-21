@@ -5,6 +5,32 @@ extern char **environ
 
 #define BUFFER_SIZE 1024
 
+/**
+  * struct commands_builtin - stuct for func ptrs to builtin cmds
+  * @input: builtin cmds
+  * @function: function
+  */
+
+typedef struct commands_builtin
+{
+	char *input;
+	int (*function)();
+} builtin_commands;
+
+/**
+  * struct Env_type - linklist in path
+  * @str: path e.g(/usr/bin)
+  * @len: string length
+  * @next: next node
+  */
+
+typedef struct Env_type
+{
+	char *str;
+	size_t len;
+	struct Env_type *next;
+} type_env;
+
 /*builtin_commands1.c*/
 int cd_command(char **tok);
 int exit_and_free(char **tok, env_t *linklist_env, char *buffer);
