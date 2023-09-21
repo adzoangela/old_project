@@ -76,5 +76,16 @@ int custom_atoi(char *str);
 char *custom_strdup(char *str);
 char *custom_strcat(char *dest, char *src);
 
+void _memcpy(char *string_af, char *source, unsigned int result);
+void set_function(char *string, int input, int num);
+void *realloc_function(char *pointer, unsigned int os, unsigned int ns);
+char *custom_getline(int stream);
+char **convert_function(char *string, char *delimiter);
+static void signal_function(int signal);
+char *custom_strtok_r(char *str, char *delimiter, char **sp);
+char *_strpbrk(char *s, char *delims);
+unsigned int _strspn(char *s, char *accept);
+char *_strchr(char *s, char c);
+
 #endif /*MAIN_H*/
 
