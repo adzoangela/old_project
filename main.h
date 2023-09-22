@@ -76,7 +76,7 @@ int custom_atoi(char *str);
 char *custom_strdup(char *str);
 char *custom_strcat(char *dest, char *src);
 
-void _memcpy(char *string_af, char *source, unsigned int result);
+void copy_function(char *string_af, char *source, unsigned int result);
 void set_function(char *string, int input, int num);
 void *realloc_function(char *pointer, unsigned int os, unsigned int ns);
 char *custom_getline(int stream);
