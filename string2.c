@@ -33,10 +33,7 @@ int custom_atoi(char *str)
 {
 	int sign, result, i = 0;
 
-	/*skip leading whitespace
-	while (str[i] == ' ' || str[i] == '/t' || str[i] == '/n')
-		i++;*/
-
+	/* convert string */
 	for (i = result = 0, sign = 1; str[i]; i++)
 	{
 		if (str[i] == '-')

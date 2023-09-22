@@ -61,7 +61,7 @@ char **convert_function(char *string, char *delimiter)
 	return (tok);
 }
 
-static unsigned char flag = 0
+static unsigned char flag;
 
 /**
   * signal_function - handles signals
@@ -69,10 +69,10 @@ static unsigned char flag = 0
   */
 static void signal_function(int signal)
 {
-        if (signal == SIGINT && flag == 0)
-                _print("\n$: ");
-        else if (flag != 0)
-                _print("\n");
+	if (signal == SIGINT && flag == 0)
+		_print("\n$: ");
+	else if (flag != 0)
+		_print("\n");
 }
 
 /**
@@ -82,7 +82,7 @@ static void signal_function(int signal)
 int main(void)
 {
 	char p_flags, *buff, *commands, *sp, **toknn;
-	env_t *linklist_env;
+	type_env *linklist_env;
 	struct stat _buffer;
 
 	if (signal(SIGINT, signal_function) == SIG_ERR)
@@ -113,7 +113,7 @@ int main(void)
 			else
 				flag = 1, execute(toknn, linklist_env);
 			free(toknn);
-			commands = _strtok_r(NULL, "\n;", &sp);
+			commands = custom_strtok_r(NULL, "\n;", &sp);
 		}
 		free(buff);
 	}

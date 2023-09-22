@@ -25,7 +25,7 @@ char *get_environs(const char *key)
 		copy_function(temp, environs[i], length - 1);
 		temp[length - 1] = '\0';
 
-		if (custom_strncmp(key, temp, custom_strlen(temp)) == 0)
+		if (custom_strncmp((char *)key, temp, custom_strlen(temp)) == 0)
 		{
 			free(temp);
 			temp = NULL;
