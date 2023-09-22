@@ -46,7 +46,7 @@ int cd_command(char **tok)
   * Return: -1 (Failure)
   */
 
-int exit_and_free(char **tok, env_t *linklist_env, char *buffer)
+int exit_and_free(char **tok, type_env *linklist_env, char *buffer)
 {
 	unsigned char status;
 	int i;

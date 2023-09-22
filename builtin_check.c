@@ -14,7 +14,7 @@ int (*builtin_checker(char *command))()
 		{"cd", cd_command},
 		{"env", env_command},
 		{"exit", exit_and_free},
-		{"history", history_comand},
+		{"history", history_command},
 		{"setenv", setenv_command},
 		{NULL, NULL}
 	};
@@ -22,8 +22,9 @@ int (*builtin_checker(char *command))()
 	i = 0;
 	while (*builtins[i].function != NULL)
 	{
-		if (_strncmp(builtins[i].input, command, _strlen(builtins[i].input)) == 0)
-			return (builtins[i].functions);
+		if (custom_strncmp(builtins[i].input, command,
+			custom_strlen(builtins[i].input)) == 0)
+			return (builtins[i].function);
 		i++;
 	}
 	return (NULL);

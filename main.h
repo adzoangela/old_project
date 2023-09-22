@@ -1,8 +1,6 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-extern char **environ
-
 #include <signal.h>
 #include <sys/wait.h>
 #include <sys/stat.h>
@@ -12,6 +10,7 @@ extern char **environ
 #include <stdio.h>
 
 #define BUFFER_SIZE 1024
+extern char **environ;
 
 /**
   * struct commands_builtin - stuct for func ptrs to builtin cmds
@@ -41,7 +40,7 @@ typedef struct Env_type
 
 /*builtin_commands1.c*/
 int cd_command(char **tok);
-int exit_and_free(char **tok, env_t *linklist_env, char *buffer);
+int exit_and_free(char **tok, type_env *linklist_env, char *buffer);
 int alias_command(void);
 
 /*buitin_command2.c*/
@@ -89,7 +88,7 @@ void set_function(char *string, int input, int num);
 void *realloc_function(char *pointer, unsigned int os, unsigned int ns);
 char *custom_getline(int stream);
 char **convert_function(char *string, char *delimiter);
-static void signal_function(int signal);
+/*static void signal_function(int signal);*/
 char *custom_strtok_r(char *str, char *delimiter, char **sp);
 char *custom_strpbrk(char *str, char *num);
 unsigned int custom_strspn(char *str, char *ac);

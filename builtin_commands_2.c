@@ -43,9 +43,9 @@ int setenv_command(char **tok)
 
 	v = custom_strtok_r(NULL, "=", &save_ptr);
 
-	stat = set_environs(k, val, 0);
-	if (status == 0)
-		return (status);
+	stat = set_environs(k, v, 0);
+	if (stat == 0)
+		return (stat);
 
 	return (-1);
 }
@@ -58,7 +58,7 @@ int setenv_command(char **tok)
   * Return: 0 (Success), -1 (Failure)
   */
 
-int env_command(char **tok, env_t *env)
+int env_command(char **tok, type_env *env)
 {
 	char **environs;
 
