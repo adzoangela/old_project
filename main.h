@@ -3,6 +3,14 @@
 
 extern char **environ
 
+#include <signal.h>
+#include <sys/wait.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <stdio.h>
+
 #define BUFFER_SIZE 1024
 
 /**
@@ -39,7 +47,7 @@ int alias_command(void);
 /*buitin_command2.c*/
 int history_command(void);
 int setenv_command(char **tok);
-int env_command(char **tok, env_t *env);
+int env_command(char **tok, type_env *env);
 
 /*builtin_checker.c*/
 int (*builtin_checker(char *command))();
@@ -71,7 +79,7 @@ int _isdigit(int c);
 void _print(const char *str);
 
 /*string2.c*/
-int custom_strncmp(char *s1, char *s2, size_t bytes);
+int custom_strncmp(char *s1, char *s2, unsigned int bytes);
 int custom_atoi(char *str);
 char *custom_strdup(char *str);
 char *custom_strcat(char *dest, char *src);
