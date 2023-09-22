@@ -27,7 +27,7 @@ typedef struct commands_builtin
 typedef struct Env_type
 {
 	char *str;
-	size_t len;
+	unsigned int len;
 	struct Env_type *next;
 } type_env;
 
