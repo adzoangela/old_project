@@ -1,103 +1,105 @@
 #include "main.h"
-/**
- * _strchr - checks for a char in a string
- * @s: the string
- * @c: the char being searched for
- * Return: pointer to char on success, NULL on failure
- */
-char *_strchr(char *s, char c)
-{
-	int len, n;
 
-	len = _strlen(s);
-	for (n = 0; n < len; n++)
+/**
+ * custom_strchr - finds a char
+ * @str: string
+ * @ch: char
+ * Return: pointer
+ */
+char *custom_strchr(char *str, char ch)
+{
+	int length, a;
+
+	length = custom_strlen(str);
+	for (a = 0; a < length; a++)
 	{
-		if (*(s + n) == c)
-			return (s + n);
+		if (*(str + a) == ch)
+			return (str + a);
 	}
-	s = '\0';
-	return (s);
+	str = '\0';
+	return (str);
 }
 /**
- * _strspn - gets length of a substring
- *
- * @s: string to be searched
- * @accept: string to match
- * Return: number of matching bytes
+ * custom_strspn - gets length
+ * @str: string
+ * @ac: string
+ * Return: bytes
  */
-unsigned int _strspn(char *s, char *accept)
+unsigned int custom_strspn(char *str, char *ac)
 {
-	int s_len, n, result;
+	int string_length, a, ind;
 
-	s_len = _strlen(s);
-	n = 0;
-	result = 0;
-	while (n < s_len)
+	string_length = custom_strlen(str);
+	a = 0;
+	ind = 0;
+	while (a < string_length)
 	{
-		if (_strchr(accept, *(s + n)))
-			result++, n++;
+		if (custom_strchr(ac, *(str + a)))
+			ind++, a++;
 		else
-			return (result);
+			return (ind);
 	}
-	return (result);
+	return (ind);
 }
-/**
- * _strpbrk - searches through a string for any set of bytes.
- * @s: string to search through
- * @delims: bytes to search for in the string.
- * Return: pointer to first occurence in s of anything in accept
- */
-char *_strpbrk(char *s, char *delims)
-{
-	char *temp;
 
-	temp = delims;
-	for (; *s != '\0'; s++)
+/**
+ * custom_strpbrk - search string for bytes
+ * @str: string
+ * @num: bytes
+ * Return: pointer
+ */
+char *custom_strpbrk(char *str, char *num)
+{
+	char *t;
+
+	t = num;
+	for (; *str != '\0'; str++)
 	{
-		while (*delims != '\0')
+		while (*num != '\0')
 		{
-			if (*s == *delims)
-				return (s);
-			delims++;
+			if (*str == *num)
+				return (str);
+			num++;
 		}
-		delims = temp;
+		num = t;
 	}
-	if (*s == '\0')
+	if (*str == '\0')
 		return (0);
 
-	return (s);
+	return (str);
 }
-/**
- * _strtok_r - replicates strtok_r, a tokenizer
- * @s: string to be tokenized
- * @delim: delimiter that determines where we split s
- * @save_ptr: saves index in tokenized s so that repeated fn calls fetch tokens
- * Return: pointer to next token
- */
-char *_strtok_r(char *s, char *delim, char **save_ptr)
-{
-	char *token;
 
-	if (s == NULL)
+/**
+ * custom_strtok_r - tokenizer
+ * @str: string
+ * @delimiter: delimiter
+ * @sp: saves index
+ * Return: pointer
+ */
+char *custom_strtok_r(char *str, char *delimiter, char **sp)
+{
+	char *toknn;
+
+	if (str == NULL)
 	{
-		if (*save_ptr == NULL)
+		if (*sp == NULL)
 			return (NULL);
-		s = *save_ptr;
+		str = *sp;
 	}
-	s += _strspn(s, delim);
-	if (*s == '\0')
+	str += custom_strspn(str, delimiter);
+	if (*str == '\0')
 	{
-		*save_ptr = NULL;
+		*sp = NULL;
 		return (NULL);
 	}
-	token = s;
-	s = _strpbrk(token, delim);
-	if (s == NULL)
-		*save_ptr = NULL;
+	toknn = str;
+	str = custom_strpbrk(toknn, delimiter);
+	if (str == NULL)
+		*sp = NULL;
 	else
 	{
-		*s = '\0';
-		*save_ptr = s + 1;
+		*str = '\0';
+		*sp = str + 1;
 	}
-	return (token);
+	return (toknn);
 }
