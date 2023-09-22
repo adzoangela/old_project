@@ -66,7 +66,7 @@ void execute(char *av[], type_env *linklist_env);
 void _free(type_env *home);
 
 /*get_environs.c*/
-char *get_environs(const char *key)
+char *get_environs(const char *key);
 
 /*node_plus.c*/
 type_env *node_plus(type_env **home, char *str, unsigned int length);

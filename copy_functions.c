@@ -49,7 +49,7 @@ void set_function(char *string, int input, int num)
 {
 	int a;
 
-	for (a = 0; a < n; a++)
+	for (a = 0; a < num; a++)
 		string[a] = input;
 }
 

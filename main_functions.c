@@ -25,7 +25,7 @@ char *custom_getline(int stream)
 		if (a < (bs - marker))
 			return (buff);
 		bs *= 2;
-		realloc_fuction(buff, bs, bs / 2);
+		realloc_function(buff, bs, bs / 2);
 		if (buff == NULL)
 		{
 			perror("memory allocation fail\n");
@@ -48,18 +48,20 @@ char **convert_function(char *string, char *delimiter)
 	char **tok, *sp, *toknn;
 	unsigned int a, b;
 
-	b = Count_words(str);
+	b = count_words(string);
 	tok = malloc((b + 1) * sizeof(char *));
 	if (!tok)
 	{
 		perror("memory allocation fail\n");
 		return (NULL);
 	}
-	tok[0] = toknn = _strtok_r(string, delimiter, &sp);
+	tok[0] = toknn = custom_strtok_r(string, delimiter, &sp);
 	for (a = 1; toknn; a++)
-		tok[a] = toknn = _strtok_r(NULL, delimiter, &sp);
+		tok[a] = toknn = custom_strtok_r(NULL, delimiter, &sp);
 	return (tok);
 }
+
+static unsigned char flag = 0
 
 /**
   * signal_function - handles signals
@@ -67,13 +69,12 @@ char **convert_function(char *string, char *delimiter)
   */
 static void signal_function(int signal)
 {
-	unsigned char flag = 0;
-
-	if (signal == SIGINT && flag == 0)
-		_print("\n$: ");
-	else if (flag != 0)
-		_print("\n");
+        if (signal == SIGINT && flag == 0)
+                _print("\n$: ");
+        else if (flag != 0)
+                _print("\n");
 }
+
 /**
   * main - entry point
   * Return: 0 or -1.
@@ -97,7 +98,7 @@ int main(void)
 	{
 		flag = 0;
 		if (p_flags == 0)
-			simple_print("$: ");
+			_print("$: ");
 		buff = custom_getline(STDIN_FILENO);
 		if (!buff)
 			break;
@@ -110,7 +111,7 @@ int main(void)
 			if (builtin_checker(toknn[0]))
 				builtin_checker(toknn[0])(toknn, linklist_env, commands);
 			else
-				flag = 1, execute(tokens, linklist_env);
+				flag = 1, execute(toknn, linklist_env);
 			free(toknn);
 			commands = _strtok_r(NULL, "\n;", &sp);
 		}
