@@ -13,7 +13,7 @@ int (*builtin_checker(char *command))()
 		{"alias", alias_command},
 		{"cd", cd_command},
 		{"env", env_command},
-		{"exit", exit_command},
+		{"exit", exit_and_free},
 		{"history", history_comand},
 		{"setenv", setenv_command},
 		{NULL, NULL}

@@ -9,9 +9,9 @@
  * Return: number of bytes that differ
  */
 
-int custom_strncmp(char *s1, char *s2, size_t bytes)
+int custom_strncmp(char *s1, char *s2, unsigned int bytes)
 {
-	size_t i;
+	unsigned int i;
 
 	if (s1 == NULL || s2 == NULL)
 		return (-1);
@@ -33,11 +33,11 @@ int custom_atoi(char *str)
 {
 	int sign, result, i = 0;
 
-	/*skip leading whitespace*/
+	/*skip leading whitespace
 	while (str[i] == ' ' || str[i] == '/t' || str[i] == '/n')
-		i++;
+		i++;*/
 
-	for (i, result = 0, sign = 1; str[i]; i++)
+	for (i = result = 0, sign = 1; str[i]; i++)
 	{
 		if (str[i] == '-')
 			sign *= -1;
@@ -70,7 +70,7 @@ char *custom_strdup(char *str)
 	if (str == NULL)
 		return (NULL);
 
-	len = custom_strlen(str);
+	length = custom_strlen(str);
 	if (length < 0)
 		return (NULL);
 	length++;
@@ -100,7 +100,7 @@ char *custom_strcat(char *dest, char *src)
 
 	dest_length = custom_strlen(dest);
 	src_length = custom_strlen(src);
-	dest = custom_realloc(dest, dest_len, dest_len + src_len + 1);
+	dest = realloc_function(dest, dest_length, dest_length + src_length + 1);
 
 	if (dest == NULL)
 		return (NULL);

@@ -8,7 +8,7 @@
 
 type_env *path_list(void)
 {
-	unsigned int length = 0, m = 0, n = 0;
+	unsigned int length = 0,/* m = 0,*/ n = 0;
 	char *environs;
 	char buffer[BUFFER_SIZE];
 	type_env *home = NULL;
@@ -47,7 +47,7 @@ char *find_command(char *input, type_env *linklist_env)
 	int stat;
 
 	current_path = linklist_env;
-	if (command == NULL || input == NULL)
+	if (current_path == NULL || input == NULL)
 		return (NULL);
 
 	if ((custom_strncmp(input, "/", 1) == 0
@@ -59,14 +59,14 @@ char *find_command(char *input, type_env *linklist_env)
 	}
 	while (current_path != NULL)
 	{
-		absolute_path = custom_strdup(home->str);
+		absolute_path = custom_strdup(current_path->str);
 		if (absolute_path == NULL)
 			return (NULL);
 
 		absolute_path = custom_strcat(absolute_path, input);
 		if (absolute_path == NULL)
 			return (NULL);
-	`	/* check if current_path exits in dir*/
+		/* check if current_path exits in dir*/
 		stat = access(absolute_path, F_OK | X_OK);
 		if (stat == 0)
 			return (absolute_path);
@@ -84,9 +84,9 @@ char *find_command(char *input, type_env *linklist_env)
   */
 type_env *build_linklist(void)
 {
-	int i = 0, j = 0;
+	int i = 0;/*j = 0;*/
 	char **environs;
-	env_t *current_path = NULL;
+	type_env *current_path = NULL;
 
 	environs = environ;
 	while (environs[i])

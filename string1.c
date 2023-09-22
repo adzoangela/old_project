@@ -18,8 +18,10 @@ unsigned int count_words(char *str)
 		if (f == 0 && (str[i] == delimiter[0] || str[i] == delimiter[1]
 			|| str[i] == delimiter[2]) && str[i + 1] != delimiter[0]
 			&& str[i + 1] != delimiter[1] && str[i + 1] != delimiter[2])
+		{
 			f = 1;
 			count++;
+		}
 		else
 			f = 0;
 	}
@@ -50,7 +52,7 @@ int custom_strlen_const(const char *str)
 {
 	int count;
 
-	for (count = 0; str[i] != '\0'; count++)
+	for (count = 0; str[count] != '\0'; count++)
 		;
 	return (count);
 }
@@ -82,5 +84,5 @@ void _print(const char *str)
 	int length;
 
 	length = custom_strlen_const(str);
-	write(STOUT_FILENO, str, length);
+	write(STDOUT_FILENO, str, length);
 }

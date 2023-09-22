@@ -16,13 +16,13 @@ type_env *node_plus(type_env **home, char *str, unsigned int length)
 
 	if (str == NULL)
 		return (NULL);
-	duplicate_str = _strdup(str);
-	if (dupstr == NULL)
+	duplicate_str = custom_strdup(str);
+	if (duplicate_str == NULL)
 		return (NULL);
 	new_node = malloc(sizeof(type_env));
 	if (new_node == NULL)
 		return (NULL);
-	new_node->str = dupstr;
+	new_node->str = duplicate_str;
 	new_node->len = length;
 	new_node->next = NULL;
 
@@ -35,5 +35,6 @@ type_env *node_plus(type_env **home, char *str, unsigned int length)
 	while (current_node->next != NULL)
 		current_node = current_node->next;
 	current_node->next = new_node;
+
 	return (*home);
 }

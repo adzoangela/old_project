@@ -13,29 +13,29 @@ void execute(char *av[], type_env *linklist_env)
 	char *absolute_path;
 
 	absolute_path = find_command(av[0], linklist_env);
-	if (absolute_path NULL)
+	if (absolute_path == NULL)
 	{
 		perror("command not found\n");
 		return;
 	}
 
-	child_pid = fork()
+	child_pid = fork();
 	if (child_pid == -1)
 	{
 		perror("fork() failed\n");
-		break;
+		return;
 	}
 	else if (child_pid == 0)
 	{
 		if (execve(absolute_path, av, environ) == -1)
 			perror("execve() failed\n");
-		break;
+		return;
 	}
 	else
 	{
 		free(absolute_path);
 		if (wait(NULL) == -1)
 			perror("wait failed\n");
-		break;
+		return;
 	}
 }

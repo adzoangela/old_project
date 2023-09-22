@@ -39,11 +39,11 @@ int setenv_command(char **tok)
 		return (-1);
 	}
 
-	k = custom_strtok(tok[1], "=", &save_ptr);
+	k = custom_strtok_r(tok[1], "=", &save_ptr);
 
-	v = custom_strtok(NULL, "=", &save_ptr);
+	v = custom_strtok_r(NULL, "=", &save_ptr);
 
-	stat = set_environs(key, value, 0);
+	stat = set_environs(k, val, 0);
 	if (status == 0)
 		return (status);
 
