@@ -38,10 +38,24 @@ typedef struct Env_type
 	struct Env_type *next;
 } type_env;
 
+/**
+  * struct alias_struct - struct for alias
+  * @name: name
+  * @value: value
+  * @next: next node
+  */
+
+typedef struct alias_builtin
+{
+	char *name;
+	char *value;
+	struct alias_builtin *next;
+} alias_struct;
+
 /*builtin_commands1.c*/
 int cd_command(char **tok);
 int exit_and_free(char **tok, type_env *linklist_env, char *buffer);
-int alias_command(void);
+/*int alias_command(void);*/
 
 /*buitin_command2.c*/
 int history_command(void);
@@ -83,11 +97,24 @@ int custom_atoi(char *str);
 char *custom_strdup(char *str);
 char *custom_strcat(char *dest, char *src);
 
+/*string3.c*/
+char *custom_strcpy(char *dest, const char *source);
+int custom_strcmp(char *str1, char *str2);
+
+/*alias.c*/
+int alias_command(char **tok);
+void alias_print_func(alias_struct *alias);
+void alias_build(char *name, char *var);
+
+/*node_plus.c*/
+alias_struct *node_plus_alias(alias_struct **home, char *key, char *value);
+
 void copy_function(char *string_af, char *source, unsigned int result);
 void set_function(char *string, int input, int num);
 void *realloc_function(char *pointer, unsigned int os, unsigned int ns);
 char *custom_getline(int stream);
 char **convert_function(char *string, char *delimiter);
+
 /*static void signal_function(int signal);*/
 char *custom_strtok_r(char *str, char *delimiter, char **sp);
 char *custom_strpbrk(char *str, char *num);

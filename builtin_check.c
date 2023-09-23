@@ -16,6 +16,7 @@ int (*builtin_checker(char *command))()
 		{"exit", exit_and_free},
 		{"history", history_command},
 		{"setenv", setenv_command},
+		{"alias", alias_command},
 		{NULL, NULL}
 	};
 

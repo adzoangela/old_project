@@ -78,7 +78,7 @@ int exit_and_free(char **tok, type_env *linklist_env, char *buffer)
   * prints them out when no options are supplied
   *
   * Return: 0 (Success)
-  */
+
 int alias_command(void)
 {
 	_print("alias: Usage: alias [-p] [name[=value] ... ]\n");
@@ -87,3 +87,4 @@ int alias_command(void)
 
 	return (0);
 }
+*/
